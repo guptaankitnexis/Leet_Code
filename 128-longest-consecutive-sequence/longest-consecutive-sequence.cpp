@@ -22,7 +22,7 @@ public:
                 x = x + 1;
                 cnt = cnt + 1;
             }
-            longest = std::max(longest, cnt);
+            longest = max(longest, cnt);
         }
     }
     return longest;
