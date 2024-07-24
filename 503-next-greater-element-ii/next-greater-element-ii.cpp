@@ -1,22 +1,23 @@
 class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
-        vector<int>ans(nums.size());
-        int n = nums.size();
-        for(int i =0;i<n;i++){
-            bool flag = true;
-            for(int j = i+1;j<i+n;j++){
-                int k = j%n;
-                if(nums[k]>nums[i]){
-                    ans[i]=nums[k];
-                    flag= false;
-                    break;
-                }
+        int n = nums.size(); // Get the size of the input array
+        vector<int> ans(n); // Initialize the answer array with the same size as input
+        stack<int> st; // Stack to keep track of the next greater elements
+
+        // Loop through the array twice to handle the circular nature
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            // Remove elements from the stack that are less than or equal to the current element
+            while (!st.empty() && st.top() <= nums[i % n]) {
+                st.pop();
             }
-            if(flag){
-                ans[i]=-1;
+            // If we are in the first pass (i < n), set the answer for the current element
+            if (i < n) {
+                ans[i] = st.empty() ? -1 : st.top(); // If stack is empty, no greater element; else, top of stack
             }
+            // Push the current element to the stack
+            st.push(nums[i % n]);
         }
-        return ans;
+        return ans; // Return the result array
     }
 };
