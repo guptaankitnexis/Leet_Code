@@ -5,7 +5,7 @@ public:
         stack <int> st;
         int maxArea=0;
         for(int i =0;i<n;i++){
-            while(!st.empty() && heights[st.top()]>heights[i]){
+            while(!st.empty() && heights[st.top()]>=heights[i]){
                 int element = st.top();
                 st.pop();
                 int nse=i;
